@@ -1,0 +1,4 @@
+import { CircleMarker, Popup } from "react-leaflet";
+import type { MapLocation } from "../../types/api";
+const colors = {Low: "#398b69", Moderate: "#bd8420", High: "#d75a28", Critical: "#bd3340"};
+export default function TrafficLayer({locations, onSelect}: {locations: MapLocation[]; onSelect: (location: MapLocation) => void}) {return <>{locations.map(location => <CircleMarker key={location.location_id} center={[location.latitude, location.longitude]} radius={location.traffic_level === "Critical" ? 16 : 13} pathOptions={{color: colors[location.traffic_level], fillColor: colors[location.traffic_level], fillOpacity: .76, weight: 2}} eventHandlers={{click: () => onSelect(location)}}><Popup><b>{location.name}</b><br/>Traffic: {location.traffic_level}<br/>Average speed: {location.average_speed} km/h</Popup></CircleMarker>)}</>}

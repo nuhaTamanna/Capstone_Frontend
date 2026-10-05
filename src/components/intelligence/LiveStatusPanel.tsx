@@ -1,0 +1,3 @@
+import StatusBadge from "../StatusBadge";
+import type { MapStatus } from "../../types/api";
+export default function LiveStatusPanel({status}: {status: MapStatus}) {return <aside className="live-status card"><p className="eyebrow">LIVE STATUS</p><h2>City intelligence</h2><div className="live-stat"><span>Overall traffic</span><StatusBadge value={status.overall_traffic}/></div><div className="live-stat"><span>Average AQI</span><b>{status.average_aqi}</b></div><div className="live-stat"><span>Active alerts</span><b>{status.active_alerts}</b></div><div className="live-stat"><span>Critical areas</span><b>{status.critical_areas}</b></div><p className="muted">Prototype status feed · designed for live updates</p></aside>}

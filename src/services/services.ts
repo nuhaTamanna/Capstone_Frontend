@@ -1,0 +1,7 @@
+import { apiClient } from "./apiClient";
+import type { Alert, AuthorityDashboard, GeographyOption, MapOverview, Prediction, SavedRoute } from "../types/api";
+export const predictionService = { location: async (location: string, datetime?: string) => (await apiClient.post<Prediction>("/predictions/location", {location, datetime: datetime || null})).data, route: async (origin: string, destination: string, datetime?: string) => (await apiClient.post<Prediction>("/predictions/route", {origin, destination, datetime: datetime || null})).data };
+export const savedRouteService = { list: async () => (await apiClient.get<SavedRoute[]>("/saved-routes")).data, create: async (route: Omit<SavedRoute, "id">) => (await apiClient.post<SavedRoute>("/saved-routes", route)).data, remove: (id: number) => apiClient.delete(`/saved-routes/${id}`) };
+export const alertService = { list: async () => (await apiClient.get<Alert[]>("/alerts")).data, get: async (id: string) => (await apiClient.get<Alert>(`/alerts/${id}`)).data, acknowledge: async (id: number) => (await apiClient.patch<Alert>(`/alerts/${id}/acknowledge`)).data };
+export const dashboardService = { authority: async () => (await apiClient.get<AuthorityDashboard>("/dashboard/authority")).data };
+export const mapService = { overview: async (params?: {continent?: string; country?: string; state?: string; locality?: string}) => (await apiClient.get<MapOverview>("/map/overview", {params})).data, geographies: async () => (await apiClient.get<GeographyOption[]>("/map/geographies")).data };

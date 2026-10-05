@@ -1,0 +1,2 @@
+export interface LayerState { traffic: boolean; pollution: boolean; alerts: boolean }
+export default function MapControls({layers, onChange}: {layers: LayerState; onChange: (layers: LayerState) => void}) { return <div className="map-controls" aria-label="Map layers">{(Object.keys(layers) as Array<keyof LayerState>).map(layer => <label key={layer}><input type="checkbox" checked={layers[layer]} onChange={() => onChange({...layers, [layer]: !layers[layer]})}/><span>{layer}</span></label>)}</div>; }
